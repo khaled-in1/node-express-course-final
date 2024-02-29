@@ -1,0 +1,5 @@
+{
+  "watch": ["starter"],
+  "ext": ".ts,.js",
+  "exe": "starter/app.ts"
+}
