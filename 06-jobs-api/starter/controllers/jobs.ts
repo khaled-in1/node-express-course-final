@@ -3,6 +3,8 @@ import { StatusCodes } from "http-status-codes";
 import { BadRequestError, NotFoundError } from "../errors";
 
 const getAllJobs = async (req, res) => {
+  console.log("the user: ", req.user.userID);
+
   const jobs = await Job.find({ createdBy: req.user.userID }).sort("createdAt");
   res.status(StatusCodes.OK).json({ jobs, count: jobs.length });
 };
@@ -11,6 +13,8 @@ const getJob = async (req, res) => {
     user: { userID },
     params: { id: jobId },
   } = req;
+  console.log("userID:", userID);
+
   const job = await Job.findOne({
     _id: jobId,
     createdBy: userID,
@@ -22,6 +26,7 @@ const getJob = async (req, res) => {
 };
 const createJob = async (req, res) => {
   req.body.createdBy = req.user.userID;
+  console.log("the user: ", req.user.userID);
   const job = await Job.create(req.body);
   res.status(StatusCodes.OK).json({ job });
 };

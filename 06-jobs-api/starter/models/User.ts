@@ -31,11 +31,13 @@ UserSchema.pre("save", async function () {
 });
 
 UserSchema.methods.createJWT = function () {
+  console.log("token");
+
   return jwt.sign(
     { userId: this._id, name: this.name },
-    process.env.JWT_SECRET,
+    process.env.JWT_SECRET!,
     {
-      expiresIn: process.env.JWT_LIFETIME,
+      expiresIn: process.env.JWT_LIFE,
     }
   );
 };
